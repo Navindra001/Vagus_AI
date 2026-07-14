@@ -1,0 +1,15 @@
+﻿.venv/
+node_modules/
+.next/
+__pycache__/
+*.pyc
+.env
+.env1
+*.env
+db.sqlite3
+healthcare_videos/
+phase5_embed.py
+cookies.txt
+cookies.txt.txt
+.idea/
+*.sqlite3

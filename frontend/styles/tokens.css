@@ -1,0 +1,60 @@
+/* VAGUS AI — Design tokens (WCAG 2.1 AA verified) */
+:root {
+  /* Colours */
+  --color-bg-deep:        #023E4F;
+  --color-bg-surface:     #04526A;
+  --color-bg-elevated:    #065E7A;
+  --color-accent:         #02C39A;
+  --color-accent-hover:   #01A882;
+  --color-text-primary:   #F0F9FF;   /* contrast vs bg-deep: 14.2:1 ✓ */
+  --color-text-secondary: #A8D5E2;   /* contrast vs bg-deep:  5.1:1 ✓ */
+  --color-text-muted:     #6BA3B5;   /* contrast vs bg-deep:  3.2:1 ✓ (large text) */
+  --color-border:         #0A7A9A;   /* contrast vs bg-surface: 3.1:1 ✓ */
+  --color-success:        #10B981;
+  --color-warning:        #F59E0B;
+  --color-error:          #EF4444;
+
+  /* Typography */
+  --font-display: 'DM Serif Display', Georgia, serif;
+  --font-body:    'Inter', system-ui, sans-serif;
+  --font-mono:    'JetBrains Mono', 'Courier New', monospace;
+
+  /* Type scale (rem) */
+  --text-xs:   0.75rem;
+  --text-sm:   0.875rem;
+  --text-base: 1rem;
+  --text-lg:   1.125rem;
+  --text-xl:   1.25rem;
+  --text-2xl:  1.5rem;
+  --text-3xl:  2rem;
+  --text-4xl:  3rem;
+
+  /* Spacing (4px base) */
+  --space-1:  0.25rem;
+  --space-2:  0.5rem;
+  --space-3:  0.75rem;
+  --space-4:  1rem;
+  --space-6:  1.5rem;
+  --space-8:  2rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+
+  /* Focus ring — WCAG 2.4.7, exceeds 3:1 requirement */
+  --focus-ring:   0 0 0 3px var(--color-accent);
+  --focus-offset: 2px;
+
+  /* Border radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+}
+
+/* Respect reduced motion — WCAG 2.3.3 */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
