@@ -1,21 +1,14 @@
-"""
-Text-to-speech using Groq TTS API.
-Returns base64-encoded MP3 audio.
-"""
-import os
-import base64
+import base64, asyncio
 from groq import Groq
+import os
 
-def synthesise(text: str, voice: str = "Aaliyah") -> str:
-    if not text.strip():
-        return ""
+def synthesise(text: str, voice: str = "Aaliya-PlayAI") -> str:
+    client = Groq(api_key=os.getenv("GROQ_API_KEY"))
     try:
-        client = Groq(api_key=os.environ.get("GROQ_API_KEY", ""))
         response = client.audio.speech.create(
             model="playai-tts",
             voice=voice,
-            input=text,
-            response_format="mp3",
+            input=text[:500],
         )
         return base64.b64encode(response.content).decode()
     except Exception as e:
