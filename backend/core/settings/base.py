@@ -41,7 +41,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF    = "core.urls"
 WSGI_APPLICATION = "core.wsgi.application"
-AUTH_USER_MODEL  = "users.User"
+AUTH_USER_MODEL  = "apps_users.User"
 
 DATABASES = {
     "default": {
