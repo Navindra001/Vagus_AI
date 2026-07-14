@@ -14,3 +14,14 @@ CORS_ALLOWED_ORIGINS = [
     "https://vagus-ai-s9s4-git-main-navindra001s-projects.vercel.app",
 ]
 CORS_ALLOW_CREDENTIALS = True
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "console": {"class": "logging.StreamHandler"},
+    },
+    "root": {
+        "handlers": ["console"],
+        "level": "ERROR",
+    },
+}
