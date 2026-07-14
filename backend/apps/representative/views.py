@@ -90,3 +90,12 @@ def chat(request):
         loop.close()
 
     return Response({"response": reply})
+@api_view(["GET"])
+@permission_classes([AllowAny])
+def debug_env(request):
+    import os
+    return Response({
+        "supabase_url": bool(os.environ.get("SUPABASE_URL")),
+        "supabase_key": bool(os.environ.get("SUPABASE_KEY")),
+        "groq_key": bool(os.environ.get("GROQ_API_KEY")),
+    })
