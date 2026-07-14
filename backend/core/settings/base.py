@@ -15,6 +15,7 @@ INSTALLED_APPS = [
     "apps.sessions",
     "apps.feedback",
     "apps.patients",
+    "apps.representative",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -24,8 +25,6 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework_simplejwt",
     "corsheaders",
-    "channels",
-    "apps.representative",
 ]
 
 MIDDLEWARE = [
@@ -41,18 +40,13 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF    = "core.urls"
-ASGI_APPLICATION = "core.asgi.application"
-AUTH_USER_MODEL  = "apps_users.User"
+WSGI_APPLICATION = "core.wsgi.application"
+AUTH_USER_MODEL  = "users.User"
 
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",
-    }
-}
-CHANNEL_LAYERS = {
-    "default": {
-        "BACKEND": "channels.layers.InMemoryChannelLayer",
     }
 }
 
@@ -65,7 +59,10 @@ REST_FRAMEWORK = {
     ],
 }
 
-CORS_ALLOWED_ORIGINS = ["http://localhost:3000"]
+CORS_ALLOWED_ORIGINS = os.getenv(
+    "CORS_ALLOWED_ORIGINS",
+    "http://localhost:3000"
+).split(",")
 CORS_ALLOW_CREDENTIALS = True
 
 STATIC_URL  = "/static/"
@@ -75,7 +72,6 @@ MEDIA_ROOT  = BASE_DIR / "media"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-# Groq configuration (replaces Ollama)
 GROQ_API_KEY = os.getenv("GROQ_API_KEY", "")
 GROQ_MODEL   = os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile")
 
