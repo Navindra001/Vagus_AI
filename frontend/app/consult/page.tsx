@@ -59,7 +59,7 @@ function ConsultContent() {
       setStatusMsg('Patient responded.')
 
       if (data.audio_b64) {
-        const audio = new Audio(`data:audio/wav;base64,${data.audio_b64}`)
+        const audio = new Audio(`data:audio/mpeg;base64,${data.audio_b64}`)
         audio.play().catch(() => {/* ignore autoplay policy blocks */})
       }
     } catch {

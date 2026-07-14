@@ -1,38 +1,26 @@
 """
-Speech-to-text service using faster-whisper (local, CPU-friendly).
+Speech-to-text using Groq Whisper API.
+No local model needed — uses the same GROQ_API_KEY as the LLM.
 """
-from faster_whisper import WhisperModel
-import tempfile
 import os
-
-_model = None
-
-
-def get_whisper() -> WhisperModel:
-    global _model
-    if _model is None:
-        _model = WhisperModel("medium", device="cpu", compute_type="int8")
-    return _model
-
+import tempfile
+from groq import Groq
 
 def transcribe(audio_bytes: bytes, mime_type: str = "audio/wav") -> str:
-    """
-    Transcribe audio bytes to text.
-
-    Args:
-        audio_bytes: Raw audio data.
-        mime_type:   MIME type of the audio (audio/wav or audio/webm).
-
-    Returns:
-        Transcribed text string.
-    """
+    client = Groq(api_key=os.environ.get("GROQ_API_KEY", ""))
     suffix = ".wav" if "wav" in mime_type else ".webm"
+
     tmp = tempfile.NamedTemporaryFile(delete=False, suffix=suffix)
     tmp.write(audio_bytes)
     tmp.close()
+
     try:
-        model = get_whisper()
-        segments, _ = model.transcribe(tmp.name, beam_size=5)
-        return " ".join(s.text for s in segments).strip()
+        with open(tmp.name, "rb") as f:
+            transcription = client.audio.transcriptions.create(
+                file=(tmp.name, f.read()),
+                model="whisper-large-v3-turbo",
+                response_format="text",
+            )
+        return transcription.strip() if isinstance(transcription, str) else transcription.text.strip()
     finally:
         os.unlink(tmp.name)
