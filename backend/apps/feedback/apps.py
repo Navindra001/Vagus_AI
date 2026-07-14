@@ -1,0 +1,4 @@
+from django.apps import AppConfig
+class FeedbackConfig(AppConfig):
+    name = "apps.feedback"
+    label = "apps_feedback"
